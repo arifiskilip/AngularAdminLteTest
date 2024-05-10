@@ -5,8 +5,13 @@ import { HomeComponent } from './components/home/home.component';
 import { inject } from '@angular/core';
 import { AuthService } from './services/auth.service';
 import { ExamplesComponent } from './components/examples/examples.component';
+import { AdminLayoutComponent } from './admin/components/admin-layout/admin-layout.component';
 
 export const routes: Routes = [
+    {
+        path:"admin",
+        component:AdminLayoutComponent
+    },
     {
         path: "login",
         component: LoginComponent
