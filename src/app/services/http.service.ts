@@ -20,6 +20,7 @@ export class HttpService {
   ) { }
 
   post<T>(url: string, model?: any): Observable<T> {
+    this.spinner.show();
     return this.http.post<T>(`${api}/${url}`, model).pipe(
       tap(_ => this.spinner.hide()),
       catchError(
@@ -29,8 +30,6 @@ export class HttpService {
 
   private handleError(err: any): Observable<never> {
     this.spinner.hide();
-    console.log(err)
-    const errorMessage = (err.error && err.error.message) ? err.error.message : 'Bir hata oluştu.';
     this.error.errorHandler(err);
     return EMPTY;
   }

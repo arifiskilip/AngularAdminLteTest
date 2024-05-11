@@ -12,31 +12,19 @@ export class ErrorService {
   ) { }
 
   errorHandler(err:HttpErrorResponse){
-    console.log(err);
+    let textMessage:string = "";
+    if(err.error.Errors){
+      err.error.Errors.forEach((x:any) => {
+          x.Errors.forEach((y:any) => {
+            textMessage+=y+'\n';
+            this.swal.callToast(y,"error");
+          });
+        });
+      }
+      else{
+        this.swal.callToast(err.error.detail,"error")
+      }
+      textMessage.length>0 ? this.swal.callToast(textMessage,"error") : "";
 
-    switch (err.status) {
-      case 0:
-        this.swal.callToast("API adresine ulaşılamıyor","error");
-        break;        
-      
-      case 403:
-        let errorMessage = "";
-        for(const e of err.error.ErrorMessages){
-          errorMessage += e + "\n";
-        }
-
-        this.swal.callToast(errorMessage,"error");
-        break;
-    
-      case 404:
-        this.swal.callToast("API adresi bulunamadı","error")
-        break;
-        
-      case 500:
-        this.swal.callToast(err.error.errorMessages[0], "error");
-        break;
-
-      
-    }    
   }
 }
