@@ -21,9 +21,9 @@ export class LoginComponent {
   ){}
 
   signIn(){
-    this.http.post<LoginResponseModel>("Auth/Login",this.model,(res)=> {
-      localStorage.setItem("token", res.token);
+    this.http.post<LoginResponseModel>("Auth/Login",this.model).subscribe(res=>{
+      localStorage.setItem("token", res.accessToken.token);
       this.router.navigateByUrl("/");
-    });
+    })
   }
 }

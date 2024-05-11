@@ -6,6 +6,7 @@ import { inject } from '@angular/core';
 import { AuthService } from './services/auth.service';
 import { ExamplesComponent } from './components/examples/examples.component';
 import { AdminLayoutComponent } from './admin/components/admin-layout/admin-layout.component';
+import { LoginVerificationCodeComponent } from './components/login-verification-code/login-verification-code.component';
 
 export const routes: Routes = [
     {
@@ -28,7 +29,12 @@ export const routes: Routes = [
             {
                 path: "examples",
                 component: ExamplesComponent
-            }
+            },
         ]
-    }
+    },
+    {
+        path:"verificationcode",
+        component:LoginVerificationCodeComponent,
+        canActivate: [()=> inject(AuthService).isAuthenticated()]
+    },
 ];

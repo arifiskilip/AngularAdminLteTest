@@ -1,7 +1,8 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { JwtPayload, jwtDecode } from 'jwt-decode';
 import { UserModel } from '../models/user.model';
+import { HttpService } from './http.service';
 
 @Injectable({
   providedIn: 'root'
@@ -29,14 +30,19 @@ export class AuthService {
       this.router.navigateByUrl("/login");
       return false;
     }
+    let http = inject(HttpService);
+    http.post<UserModel>("auth/GetCustomer").subscribe(res=>{
+      this.user.id = res.id,
+      this.user.email = res.email,
+      this.user.firstName = res.firstName,
+      this.user.lastName = res.lastName,
+      this.user.departmentId = res.departmentId,
+      this.user.isEmailVerified = res.isEmailVerified
 
-    this.user.id = decode["Id"];
-    this.user.name = decode["Name"];
-    this.user.email = decode["Email"];
-    this.user.userName = decode["UserName"];
-
-    console.log(this.user);
-    
+      if(this.user.isEmailVerified === false){
+        this.router.navigateByUrl("/verificationcode");
+      }
+    })
 
     return true;
   }

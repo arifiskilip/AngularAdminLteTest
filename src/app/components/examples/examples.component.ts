@@ -29,46 +29,6 @@ export class ExamplesComponent {
   ){}
 
   ngOnInit(): void {
-    this.getAll();
   }
 
-  getAll(){
-    this.http.post<ExampleModel[]>("Examples/GetAll",{},(res)=> {
-      this.examples = res;
-    });
   }
-
-  create(form: NgForm){
-    if(form.valid){
-      this.http.post<string>("Examples/Create",this.createModel,(res)=> {
-        this.swal.callToast(res);
-        this.createModel = new ExampleModel();
-        this.createModalCloseBtn?.nativeElement.click();
-        this.getAll();
-      });
-    }
-  }
-
-  deleteById(model: ExampleModel){
-    this.swal.callSwal("Veriyi Sil?",`${model.field1} verisini silmek istiyor musunuz?`,()=> {
-      this.http.post<string>("Examples/DeleteById",{id: model.id},(res)=> {
-        this.getAll();
-        this.swal.callToast(res,"info");
-      });
-    })
-  }
-
-  get(model: ExampleModel){
-    this.updateModel = {...model};
-  }
-
-  update(form: NgForm){
-    if(form.valid){
-      this.http.post<string>("Examples/Update",this.updateModel,(res)=> {
-        this.swal.callToast(res,"info");
-        this.updateModalCloseBtn?.nativeElement.click();
-        this.getAll();
-      });
-    }
-  }
-}
