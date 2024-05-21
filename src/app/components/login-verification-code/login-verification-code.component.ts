@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { HttpService } from '../../services/http.service';
 import { SharedModule } from '../../modules/shared.module';
 import { Router } from '@angular/router';
@@ -8,7 +8,8 @@ import { Router } from '@angular/router';
   standalone: true,
   imports: [SharedModule],
   templateUrl: './login-verification-code.component.html',
-  styleUrl: './login-verification-code.component.css'
+  styleUrl: './login-verification-code.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoginVerificationCodeComponent {
 
@@ -44,7 +45,7 @@ export class LoginVerificationCodeComponent {
 
   emailVerified(){
     this.http.post("Auth/EmailVerified",{code:this.code}).subscribe(res=>{
-      
+      this.router.navigateByUrl("");
     })
   }
  }

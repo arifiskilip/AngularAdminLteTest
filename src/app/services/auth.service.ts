@@ -59,21 +59,13 @@ export class AuthService {
     );
   }
 
-  async refreshTokenLogin(refreshToken: string | null, callBackFunction: (state:any) => void): Promise<any> {
+  refreshTokenLogin(refreshToken: string | null){
     let http = inject(HttpService);
-    const observable = http.post("Auth/RefreshTokenCheck", { refreshToken: refreshToken });
-
-    try {
-      const tokenResponse = await firstValueFrom(observable) as RefreshTokenResponse;
-
-      if (tokenResponse) {
-        localStorage.setItem("accessToken", tokenResponse.accessToken.token);
-        localStorage.setItem("refreshToken", tokenResponse.refreshToken.token);
-      }
-      callBackFunction(tokenResponse ? true : false);
-    } catch {
-      callBackFunction(false);
-    }
+    http.post<RefreshTokenResponse>("Auth/RefreshTokenCheck", { refreshToken: refreshToken })
+    .subscribe(res=>{
+      localStorage.setItem("accessToken", res.accessToken.token);
+      localStorage.setItem("refreshToken", res.refreshToken.token);
+    },err=>console.log("Hata var koç"));
    }
 }
 

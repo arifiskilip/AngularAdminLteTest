@@ -20,5 +20,12 @@ export const Menus: MenuModel[] = [
         url: "/examples",
         isTitle: false,
         subMenus: []
+    },
+    {
+        name: "Users",
+        icon: "fa-solid fa-user",
+        url: "/users",
+        isTitle: false,
+        subMenus: []
     }
 ]

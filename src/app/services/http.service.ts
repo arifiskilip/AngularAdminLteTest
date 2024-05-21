@@ -28,6 +28,15 @@ export class HttpService {
     );
   }
 
+   // Generic GET method
+   get<T>(url: string): Observable<T> {
+    this.spinner.show();
+    return this.http.get<T>(`${api}/${url}`).pipe(
+      tap(() => this.spinner.hide()),
+      catchError(this.handleError.bind(this))
+    );
+  }
+
   private handleError(err: any): Observable<never> {
     this.spinner.hide();
     this.error.errorHandler(err);
