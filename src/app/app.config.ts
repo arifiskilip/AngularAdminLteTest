@@ -7,10 +7,13 @@ import { provideHttpClient, withInterceptors, withInterceptorsFromDi } from '@an
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { JwtModule } from '@auth0/angular-jwt';
 import { httpErrorInterceptor } from './interceptors/http-error.interceptor';
+import { FormGuard } from './guards/form-guard.guard';
+import { loadingInterceptor } from './interceptors/loading.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
+    FormGuard,
     provideHttpClient(withInterceptors([httpErrorInterceptor])),
     provideHttpClient(
       withInterceptorsFromDi()

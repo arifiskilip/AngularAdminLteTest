@@ -1,4 +1,4 @@
-import { Routes } from '@angular/router';
+import { Routes, CanDeactivate } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
 import { LayoutsComponent } from './components/layouts/layouts.component';
 import { HomeComponent } from './components/home/home.component';
@@ -7,6 +7,7 @@ import { AuthService } from './services/auth.service';
 import { ExamplesComponent } from './components/examples/examples.component';
 import { AdminLayoutComponent } from './admin/components/admin-layout/admin-layout.component';
 import { LoginVerificationCodeComponent } from './components/login-verification-code/login-verification-code.component';
+import { FormGuard } from './guards/form-guard.guard';
 
 export const routes: Routes = [
     {
@@ -28,7 +29,8 @@ export const routes: Routes = [
             },
             {
                 path: "examples",
-                component: ExamplesComponent
+                component: ExamplesComponent,
+                canDeactivate:[FormGuard]
             },
         ]
     },

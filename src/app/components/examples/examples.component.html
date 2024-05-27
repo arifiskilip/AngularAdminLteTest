@@ -41,7 +41,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="addTodoModalLabel">Add Todo</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="canDeactivate()">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -49,17 +49,18 @@
                     <form>
                         <div class="form-group">
                             <label for="todoName"><i class="fas fa-tasks"></i> Todo Name</label>
-                            <input type="text" class="form-control" id="todoName" placeholder="Enter todo name">
+                            <input type="text" (change)="onInputChange()"
+                             class="form-control" id="todoName" placeholder="Enter todo name">
                         </div>
                         <div class="form-group">
                             <label for="todoDescription"><i class="fas fa-align-left"></i> Description</label>
-                            <textarea class="form-control" id="todoDescription" rows="3" placeholder="Enter description"></textarea>
+                            <textarea class="form-control" (change)="onInputChange()" id="todoDescription" rows="3" placeholder="Enter description"></textarea>
                         </div>
                         <div class="form-group form-check">
                             <input type="checkbox" class="form-check-input" id="isCompleted">
                             <label class="form-check-label" for="isCompleted"><i class="fas fa-check"></i> Is Completed</label>
                         </div>
-                        <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Save</button>
+                        <button type="submit" class="btn btn-primary" (click)="onSubmit()"><i class="fas fa-save"></i> Save</button>
                     </form>
                 </div>
             </div>

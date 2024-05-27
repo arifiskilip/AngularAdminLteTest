@@ -33,7 +33,7 @@ export const httpErrorInterceptor: HttpInterceptorFn = (req, next) => {
         toastr.callToast("Sunucuya erişilmiyor!", "error");
         break;
       case HttpStatusCode.BadRequest:
-         toastr.callToast(error.error.message, "error");
+         toastr.callToast("Hatalı işlem.","error");
         break;
       case HttpStatusCode.NotFound:
         toastr.callToast("Sayfa bulunamadı!", "error");
